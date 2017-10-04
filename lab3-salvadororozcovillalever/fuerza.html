@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<title> Fuerza </title>
+
+<script>
+function Fuerza()
+{
+	//alert ("fuerza...");
+	var masa = document.getElementById("masa").value;
+	var aceleracion = document.getElementById("aceleracion").value;
+
+	var result = document.getElementById("fuerza");
+	var fuerza = masa*aceleracion
+	result.value = fuerza;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Fuerza </h1>
+<br>
+masa = <input type="text" id="masa"></br>
+aceleración = <input type="text" id="aceleracion"></br>
+fuerza = <input type="text" id="fuerza"> </br>
+<button onclick="Fuerza()"> calcular fuerza </button>
+<p> by adsoftsito </p>
+</body>
+</html>

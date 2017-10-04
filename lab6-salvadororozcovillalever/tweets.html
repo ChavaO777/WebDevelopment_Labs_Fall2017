@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lab6 - Microposts</title>
+
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+<!-- Navigation section
+================================================== -->
+<section role="navigation">
+
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/home"> Microposts </a>
+      </div>
+      <ul class="nav navbar-nav">
+       	<li><a href="/usuarios" >Usuarios</a></li>
+  	    <li><a href="#" >Tweets</a></li>
+      </ul>
+  </div>
+  </nav>
+</section>
+
+<!-- Usuarios -->
+<section id="Usuarios">
+  <div class="container">
+    <div class="row">
+      <div class="jumbotron text-center">
+        <p>Tweets</p>
+      </div>
+
+      <form>
+
+        <div class="form-group">
+          <input type="text-center" class="form-control" id="usuario"  placeholder="User"></div>
+   
+        <div class="form-group">
+          <input type="text-center" class="form-control" id="tweet" placeholder="Tweet">
+        </div>
+
+        <div class="form-group">
+
+        <button type="button" class="btn btn-primary" onclick="insertTweet()">
+          (C) reate 
+        </button>
+
+        <button type="button" class="btn btn-danger" onclick="updateTweet()">
+          (U) pdate
+        </button>
+      
+        </div>
+
+        <div class="form-group">
+
+          <button type="button" class="btn btn-primary" onclick="getAllTweets()">
+            (R) eadAll
+          </button>
+        
+        </div>
+
+      </form>
+
+      <div>
+        <div class="row" id="listTweets">
+      </div>
+
+    </div>
+  </div>		
+</section>
+
+<!-- Footer section ====== -->
+<footer>
+	<!-- google map -->
+	<div>
+	  <p> &copy; 2017 | by adsoft-Sito</p>
+	</div>
+</footer>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="app/tweets.js"></script>
+
+</body>
+
+</html>

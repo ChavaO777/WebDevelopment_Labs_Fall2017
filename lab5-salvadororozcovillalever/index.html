@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lab5 - Operaciones</title>
+
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+<!-- Navigation section
+================================================== -->
+<section role="navigation">
+				
+	<nav class="navbar navbar-default">
+	  	<div class="container-fluid">
+		    
+		    <div class="navbar-header">
+		    	<a class="navbar-brand" href="#"> Operaciones </a>
+		    </div>
+		    
+		    <ul class="nav navbar-nav">
+				<li><a href="#cilindro">Cilindro</a></li>
+				<li><a href="#cubo">Cubo</a></li>
+				<li><a href="#einstein" >Einstein</a></li>
+				<li><a href="#esfera" >Esfera</a></li>
+				<li><a href="#fuerza" >Fuerza</a></li>
+				<li><a href="#piramide" >Piramide</a></li>
+				<li><a href="#pitagoras" >Pitagoras</a></li>
+				<li><a href="#suma" >Suma</a></li>
+				<li><a href="#trapecio" >Trapecio</a></li>
+				<li><a href="#triangulo" >Triángulo</a></li>
+				<li><a href="#velocidad" >Velocidad</a></li>
+		    </ul>
+
+	  	</div>
+	</nav>
+</section>
+
+<!-- Cilindro ========================================================== -->
+
+<section id="cilindro">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Cilindro</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="cilindro_altura"  placeholder="Enter the height">
+	     		</div>
+
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="cilindro_radio"  placeholder="Enter the radius">
+		     	</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="cilindro()"> Calcular volumen
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="cilindro_volumen"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Cubo ========================================================== -->
+
+<section id="cubo">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Cubo</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="cubo_lado"  placeholder="Enter the side">
+	     		</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="cubo()"> Calcular volumen
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="cubo_volumen"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Einstein ========================================================== -->
+
+<section id="einstein">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Einstein</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="einstein_masa"  placeholder="Enter the mass">
+	     		</div>
+
+	     		<div class="form-group">
+              	<input type="Number" class="form-control" id="einstein_velocidad"  placeholder="Enter the speed">
+	     		</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="einstein()"> Calcular energía
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="einstein_energia"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Esfera ========================================================== -->
+
+<section id="esfera">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Esfera</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="esfera_radio"  placeholder="Enter the radius">
+	     		</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="esfera()"> Calcular volumen
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="esfera_volumen"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Fuerza ========================================================== -->
+
+<section id="fuerza">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Fuerza</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="cuerpo_masa"  placeholder="Enter the mass">
+	     		</div>
+
+	     		<div class="form-group">
+              	<input type="Number" class="form-control" id="cuerpo_aceleracion"  placeholder="Enter the acceleration">
+	     		</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="fuerza()"> Calcular fuerza
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="cuerpo_fuerza"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Piramide ========================================================== -->
+
+<section id="piramide">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Pirámide</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="piramide_altura"  placeholder="Enter the height">
+	     		</div>
+
+	     		<div class="form-group">
+              	<input type="Number" class="form-control" id="piramide_radio"  placeholder="Enter the radius">
+	     		</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="piramide()"> Calcular volumen
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="piramide_volumen"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Pitagoras ========================================================== -->
+
+<section id="pitagoras">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Pitágoras</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="pitagoras_a"  placeholder="Enter the value of the first side">
+	     		</div>
+
+	     		<div class="form-group">
+              	<input type="Number" class="form-control" id="pitagoras_b"  placeholder="Enter the value of the second side">
+	     		</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="pitagoras()"> Calcular hipotenusa
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="pitagoras_c"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Suma ============================================================== -->
+<section id="suma">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Suma</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="sum_x"  placeholder="Enter the x value">
+	     		</div>
+
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="sum_y"  placeholder="Enter the y value">
+		     	</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="sum()"> Sumar 
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="sum_z"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Trapecio ============================================================== -->
+<section id="trapecio">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Trapecio</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="trapecio_altura"  placeholder="Enter the height">
+	     		</div>
+
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="trapecio_basemayor"  placeholder="Enter the large base">
+		     	</div>
+
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="trapecio_basemenor"  placeholder="Enter the small base">
+		     	</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="trapecio()"> Calcular área 
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="trapecio_area"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Triangulo ============================================================== -->
+<section id="triangulo">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Triángulo</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="triangulo_base"  placeholder="Enter the base">
+	     		</div>
+
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="triangulo_altura"  placeholder="Enter the height">
+		     	</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="triangulo()"> Calcular área 
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="triangulo_area"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Velocidad ============================================================== -->
+<section id="velocidad">
+	<div class="container">
+		<div class="row">
+
+			<div class="jumbotron text-center">
+			  <p>Velocidad</p>
+			</div>
+
+		   	<form>
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="velocidad_distancia"  placeholder="Enter the distance">
+	     		</div>
+
+			    <div class="form-group">
+              	<input type="Number" class="form-control" id="velocidad_tiempo"  placeholder="Enter the time">
+		     	</div>
+
+			    <div class="form-group">
+		       	<button type="button" class="btn btn-primary" onclick="velocidad()"> Calcular velocidad 
+		     	</button>
+		     	</div>
+		 
+		     	<div class="form-group">
+              	<input type="Number" class="form-control" id="velocidad_velocidad"  placeholder="The result will be here ...">
+	    	 	</div>
+		 	</form>
+
+		</div>
+	</div>		
+</section>
+
+<!-- Footer section
+================================================== -->
+<footer>
+	<!-- google map -->
+	<div>
+		<p> &copy; 2017 | by adsoft-Sito</p>
+	</div>
+</footer>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="app/opers.js"></script>
+<script src="app/client.js"></script>
+
+</body>
+
+</html>

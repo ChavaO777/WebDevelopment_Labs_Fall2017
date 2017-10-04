@@ -1,0 +1,46 @@
+<html>
+
+<head>
+<title> Cubo </title>
+
+<script>
+function Cubo()
+{
+	//alert ("cubo...");
+	var lado = document.getElementById("lado").value;
+
+	if(!isNumeric(lado)){
+
+		alert("Only numbers are allowed in the field \"lado\". Try again.");
+		resetValues();
+		return;
+	}
+
+	var result = document.getElementById("volumen");
+	var volumen = lado*lado*lado;
+	result.value = volumen;
+}
+
+function isNumeric(num){
+	
+    return !isNaN(num)
+}
+
+function resetValues(){
+
+	document.getElementById("lado").value = 0.0;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Cubo </h1>
+<br>
+lado = <input type="text" id="lado"></br>
+volumen = <input type="text" id="volumen"> </br>
+<button onclick="Cubo()"> calcular volumen </button>
+<p> by adsoftsito </p>
+</body>
+</html>

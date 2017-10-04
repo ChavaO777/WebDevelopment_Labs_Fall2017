@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<title> Cilindro </title>
+
+<script src="js/utilityfunctions.js" type="text/javascript">
+</script>
+
+<script>
+function Cilindro()
+{
+	//alert ("cilindro...");
+	var altura = document.getElementById("altura").value;
+	var radio = document.getElementById("radio").value;
+
+	if(!isNumeric(altura) || !isNumeric(radio)){
+
+		alert("Only numbers are allowed in the fields \"altura\" and \"radio\". Try again.");
+		resetValues(["altura", "radio", "volumen"]);
+		return;
+	}
+
+	var result = document.getElementById("volumen");
+	var volumen = altura*(Math.PI*(radio*radio));
+
+	result.value = volumen;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Cilindro </h1>
+<br>
+altura = <input type="text" id="altura"></br>
+radio = <input type="text" id="radio"></br>
+volumen = <input type="text" id="volumen"> </br>
+<button onclick="Cilindro()"> calcular volumen </button>
+<p> by adsoftsito </p>
+</body>
+</html>

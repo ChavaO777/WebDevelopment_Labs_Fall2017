@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<title> Esfera </title>
+
+<script>
+function Esfera()
+{
+	//alert ("esfera...");
+	var radio = document.getElementById("radio").value;
+
+	var result = document.getElementById("volumen");
+	var volumen = (4.0/3.0)*(radio*radio*radio)*Math.PI;
+	result.value = volumen;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Einstein </h1>
+<br>
+radio = <input type="text" id="radio"></br>
+volumen = <input type="text" id="volumen"> </br>
+<button onclick="Esfera()"> calcular volumen </button>
+<p> by adsoftsito </p>
+</body>
+</html>

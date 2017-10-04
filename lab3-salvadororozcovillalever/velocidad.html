@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<title> Velocidad </title>
+
+<script>
+function Velocidad()
+{
+	//alert ("triangulo...");
+	var distancia = document.getElementById("distancia").value;
+	var tiempo = document.getElementById("tiempo").value;
+
+	var result = document.getElementById("velocidad");
+	var velocidad = distancia/tiempo;
+	result.value = velocidad;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Velocidad </h1>
+<br>
+distancia = <input type="text" id="distancia"></br>
+tiempo = <input type="text" id="tiempo"> </br>
+velocidad = <input type="text" id="velocidad"> </br>
+<button onclick="Velocidad()"> calcular velocidad </button>
+<p> by adsoftsito </p>
+</body>
+</html>

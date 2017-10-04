@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<title> Piramide </title>
+
+<script>
+function Piramide()
+{
+	//alert ("piramide...");
+	var altura = document.getElementById("altura").value;
+	var radio = document.getElementById("radio").value;
+
+	var result = document.getElementById("volumen");
+	var volumen = altura*(Math.PI*(radio*radio))/3.0;
+	result.value = volumen;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Pirámide </h1>
+<br>
+altura = <input type="text" id="altura"></br>
+radio = <input type="text" id="radio"></br>
+volumen = <input type="text" id="volumen"> </br>
+<button onclick="Piramide()"> calcular volumen </button>
+<p> by adsoftsito </p>
+</body>
+</html>

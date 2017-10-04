@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<title> Trapecio </title>
+
+<script>
+function Trapecio()
+{
+	//alert ("trapecio...");
+	var altura = document.getElementById("altura").value;
+	var basemayor = document.getElementById("basemayor").value;
+	var basemenor = document.getElementById("basemenor").value;
+
+	var result = document.getElementById("area");
+	var area = (altura*(+basemenor + +basemayor))/2.0;
+	result.value = area;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Trapecio </h1>
+<br>
+altura = <input type="text" id="altura"></br>
+basemayor = <input type="text" id="basemayor"> </br>
+basemenor = <input type="text" id="basemenor"> </br>
+area = <input type="text" id="area"> </br>
+<button onclick="Trapecio()"> Calcular área </button>
+<p> by adsoftsito </p>
+</body>
+</html>

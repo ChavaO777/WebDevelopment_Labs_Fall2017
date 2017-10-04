@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<title> Einstein </title>
+
+<script>
+function Einstein()
+{
+	//alert ("einstein...");
+	var masa = document.getElementById("masa").value;
+	var velocidad = document.getElementById("velocidad").value;
+
+	var result = document.getElementById("energia");
+	var energia = parseInt(masa)*(parseInt(velocidad)*parseInt(velocidad));
+	result.value = energia;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Einstein </h1>
+<br>
+masa = <input type="text" id="masa"></br>
+velocidad = <input type="text" id="velocidad"> </br>
+energia = <input type="text" id="energia"> </br>
+<button onclick="Einstein()"> calcular energía </button>
+<p> by adsoftsito </p>
+</body>
+</html>

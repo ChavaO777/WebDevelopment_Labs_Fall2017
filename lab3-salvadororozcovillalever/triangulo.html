@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<title> Triangulo </title>
+
+<script>
+function Triangulo()
+{
+	//alert ("triangulo...");
+	var base = document.getElementById("base").value;
+	var altura = document.getElementById("altura").value;
+
+	var result = document.getElementById("area");
+	var area = parseInt(base)*parseInt(altura)/2.0;
+	result.value = area;
+}
+
+</script>
+
+</head>
+
+<body>
+<h1> Triángulo </h1>
+<br>
+base = <input type="text" id="base"></br>
+altura = <input type="text" id="altura"> </br>
+area = <input type="text" id="area"> </br>
+<button onclick="Triangulo()"> calcular área </button>
+<p> by adsoftsito </p>
+</body>
+</html>
