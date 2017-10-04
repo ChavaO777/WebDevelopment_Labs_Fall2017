@@ -1,0 +1,35 @@
+Procedimiento para probar hello-world local
+1.- create helloworld
+2.- cd helloworld
+3.- nano app.yaml
+....
+4.- nano main.py
+5.- dev_appserver.py .
+
+Para probar en localhost:
+
+0. Ir a la carpeta del proyecto
+1. dev_appserver.py .
+
+Para montar en Google Cloud
+
+0.- Ir a la carpeta del proyecto
+1.- probar en chrome con localhost:8080
+2.- gcloud projects create helloworld-xxxxx
+3.- gcloud config set project helloworld-xxxxx
+4.- gcloud app create
+5.- gcloud app deploy
+
+///////////////////////////////////////////////
+
+To use Python 2.7
+
+conda create -n Python27 python=2.7
+
+#
+# To activate this environment, use:
+# > source activate Python27
+#
+# To deactivate an active environment, use:
+# > source deactivate
+#

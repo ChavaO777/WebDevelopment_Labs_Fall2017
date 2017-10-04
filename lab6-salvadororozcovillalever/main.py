@@ -7,6 +7,12 @@ from google.appengine.ext import ndb
 from models import Usuarios
 from models import Tweets
 
+from google.appengine.api import app_identity
+import mimetypes
+import cloudstorage
+from google.appengine.ext import blobstore
+from google.appengine.api import images
+
 ##usuarios ################
 class ModelClass(object): ## Generic class without fields; we can add fields on the go as we need them56
  pass
@@ -34,7 +40,12 @@ class CreateUserHandler(webapp2.RequestHandler):
  			myAge = self.request.get('age')
  			myPhotoUrl = self.request.get('photourl')
 
- 			myNuevoUsuario = Usuarios(email = myEmail, password = myPassword, nickname = myNickname, age = myAge, photourl = myPhotoUrl)
+ 			myNuevoUsuario = Usuarios(email = myEmail, 
+ 									  password = myPassword, 
+ 									  nickname = myNickname, 
+ 									  age = myAge, 
+ 									  photourl = myPhotoUrl)
+
  			myUsuarioKey = myNuevoUsuario.put()
 
  			c.message = "inserted"
@@ -52,6 +63,7 @@ class ReadAllUsersHandler(webapp2.RequestHandler):
  		self.response.headers['Content-Type'] = 'application/json'
  		myList = []
  		try:
+
  			listUsers = Usuarios.query().fetch()
  			
  			for i in listUsers:
@@ -297,6 +309,49 @@ class MainTweetsHandler(webapp2.RequestHandler):
     template_context = {}
     self.response.out.write(template.render(template_context))
 
+####################################################################################
+
+class UpHandler(webapp2.RequestHandler):
+
+	def _get_urls_for(self, file_name):
+
+		bucket_name = app_identity.get_default_gcs_bucket_name()
+		path = os.path.join('/', bucket_name, file_name)
+		real_path = '/gs' + path
+		key = blobstore.create_gs_key(real_path)
+
+		try:
+
+			url = images.get_serving_url(key, size=0)
+
+		except images.TransformationError, images.NotImageError:
+
+			url = "http://storage.googleapis.com{}".format(path)
+
+		return url
+
+	def post(self):
+
+		self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+		self.response.headers['Content-Type'] = 'application/json'
+
+		bucket_name = app_identity.get_default_gcs_bucket_name()
+		uploaded_file = self.request.POST.get('uploaded_file')
+		file_name = getattr(uploaded_file, 'filename', None)
+		file_content = getattr(uploaded_file, 'file', None)
+		real_path = ''
+
+		if file_name and file_content:
+			content_t = mimetypes.guess_type(file_name)[0]
+			real_path = os.path.join('/', bucket_name, file_name)
+
+		with cloudstorage.open(real_path, 'w', content_type=content_t,
+			options={'x-goog-acl': 'public-read'}) as f:
+			f.write(file_content.read())
+
+		key = self._get_urls_for(file_name)
+		self.response.write(key)
+
 app = webapp2.WSGIApplication([
 	('/', MainHandler),
 	('/home', MainHandler),
@@ -308,6 +363,7 @@ app = webapp2.WSGIApplication([
  	('/readOneUser', ReadOneUserHandler),
  	('/updateUser', UpdateUserHandler),
 	('/deleteUser', DeleteUserHandler),
+	('/up', UpHandler),
 	########################################
 	('/createTweet', CreateTweetHandler),
 	('/readAllTweets', ReadAllTweetsHandler),

@@ -22,7 +22,7 @@ function insertUsuario()
     myUsuario.password = val_password;
     myUsuario.nickname = val_nickname;
     myUsuario.age = val_age;
-    myUsuario.photourl = val_photourl;
+    myUsuario.photourl = sessionStorage.urlImage;
 
     var form_data = new FormData();
     form_data.append("email", myUsuario.email);
@@ -88,11 +88,12 @@ function getAllUsers()
           "  <tr> " + 
           "    <th> </th> " +
           // "    <th> entityKey </th> " +
+          "    <th> photo </th> " + 
           "    <th> email </th> " +
           "    <th> password </th> " +
           "    <th> nickname </th> " + 
           "    <th> age </th> " + 
-          "    <th> photourl </th> " + 
+          // "    <th> photourl </th> " + 
           "    <th> Delete </th> " +
           "  </tr> ";
 
@@ -104,11 +105,12 @@ function getAllUsers()
           "<i class='fa fa fa-ban'></i> Edit </button> " + 
             "</td>" +
             // "<td > " + user.id + " </td> " + 
+            "<td > " + "<img src=\"" + user.photourl + "\" style=\"width:64px;height:64px;\">" +
             "<td > " + user.email + "</td> " +
             "<td > " + user.password + "</td> " +
             "<td > " + user.nickname + "</td> " + 
             "<td > " + user.age + "</td> " + 
-            "<td > " + user.photourl + "</td> " + 
+            // "<td > " + user.photourl + "</td> " + 
             "<td>" +
           "<button onclick='deleteUser(\"" + user.id + "\")' class='btn btn-danger'> " + 
           "<i class='fa fa fa-ban'></i> (D) elete </button>" + 
