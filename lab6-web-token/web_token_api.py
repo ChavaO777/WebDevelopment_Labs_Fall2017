@@ -130,6 +130,25 @@ class ProductsApi(remote.Service):
       message = CodeMessage(code = -1, message='Token expired')
     return message
 
+  @endpoints.method(TokenKey, CodeMessage, path='products/delete', http_method='POST', name='products.delete')
+  #siempre lleva cls y request
+  def product_remove(cls, request):
+    
+    try:
+
+      token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+      productEntity = ndb.Key(urlsafe = request.entityKey)#Obtiene el elemento dado el EntitKey
+      productEntity.delete()#BORRA
+      message = CodeMessage(code = 1, message = 'Succesfully deleted')
+    
+    except jwt.DecodeError:
+      message = CodeMessage(code = -2, message = 'Invalid token')
+
+    except jwt.ExpiredSignatureError:
+      message = CodeMessage(code = -1, message = 'Token expired')
+    
+    return message
+
 ###############
 # Usuarios
 ###############
@@ -160,68 +179,78 @@ class UsuariosApi(remote.Service):
 
 ########################## list###################
 #                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
- @endpoints.method(Token, UserList, path='users/list', http_method='POST', name='users.list')
- def lista_usuarios(cls, request):
-  try:
-   token = jwt.decode(request.tokenint, 'secret')  #checa token
-   user = Usuarios.get_by_id(token['user_id']) #obtiene usuario dado el token
-   lista = []  #crea lista
-   lstMessage = UserList(code=1) # crea objeto mensaje
-   lstBd = Usuarios.query().fetch() # recupera de base de datos
-   for i in lstBd: # recorre
-    lista.append(UserUpdate(token='',
-     entityKey=i.entityKey,
-     #empresa_key=user.empresa_key.urlsafe(),
-     email=i.email)) # agrega a la lista
+  @endpoints.method(Token, UserList, path='users/list', http_method='POST', name='users.list')
+  def lista_usuarios(cls, request):
+    try:
+      token = jwt.decode(request.tokenint, 'secret')  #checa token
+      user = Usuarios.get_by_id(token['user_id']) #obtiene usuario dado el token
+      lista = []  #crea lista
+      lstMessage = UserList(code=1) # crea objeto mensaje
+      lstBd = Usuarios.query().fetch() # recupera de base de datos
+      
+      for i in lstBd: # recorre
+        lista.append(UserUpdate(token='',
+        entityKey=i.entityKey,
+        #empresa_key=user.empresa_key.urlsafe(),
+        email=i.email)) # agrega a la lista
+      
+      lstMessage.data = lista # la manda al messa
+      message = lstMessage #regresa
+      
+    except jwt.DecodeError:
+      message = UserList(code=-1, data=[]) #token invalido
+    except jwt.ExpiredSignatureError:
+      message = UserList(code=-2, data=[]) #token expiro
     
-   lstMessage.data = lista # la manda al messa
-   message = lstMessage #regresa
-    
-  except jwt.DecodeError:
-   message = UserList(code=-1, data=[]) #token invalido
-  except jwt.ExpiredSignatureError:
-   message = UserList(code=-2, data=[]) #token expiro
-  return message
+    return message
 
-# delete
-#                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
- @endpoints.method(TokenKey, CodeMessage, path='users/delete', http_method='POST', name='users.delete')
- #siempre lleva cls y request
- def user_remove(cls, request):
-  try:
-    token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
-    usersentity = ndb.Key(urlsafe=request.entityKey)#Obtiene el elemento dado el EntitKey
-    usersentity.delete()#BORRA
-    message = CodeMessage(code=1, message='Succesfully deleted')
-  except jwt.DecodeError:
-    message = CodeMessage(code=-2, message='Invalid token')
-  except jwt.ExpiredSignatureError:
-    message = CodeMessage(code=-1, message='Token expired')
-  return message
+  @endpoints.method(TokenKey, CodeMessage, path='users/delete', http_method='POST', name='users.delete')
+  #siempre lleva cls y request
+  def user_remove(cls, request):
+    try:
+      
+      token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+      usersentity = ndb.Key(urlsafe=request.entityKey)#Obtiene el elemento dado el EntitKey
+      usersentity.delete()#BORRA
+      message = CodeMessage(code=1, message='Succesfully deleted')
+    
+    except jwt.DecodeError:
+      message = CodeMessage(code=-2, message='Invalid token')
+    
+    except jwt.ExpiredSignatureError:
+      message = CodeMessage(code=-1, message='Token expired')
+    
+    return message
 
 # insert
 #                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
- @endpoints.method(UserInput, CodeMessage, path='users/insert', http_method='POST', name='users.insert')
- def user_add(cls, request):
-  try:
-   token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
-   user = Usuarios.get_by_id(token['user_id'])
-   if validarEmail(request.email) == False: #checa si el email esta registrado
+  @endpoints.method(UserInput, CodeMessage, path='users/insert', http_method='POST', name='users.insert')
+  def user_add(cls, request):
+    try:
+      token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
+      user = Usuarios.get_by_id(token['user_id'])
+    
+      if validarEmail(request.email) == False: #checa si el email esta registrado
                        #empresakey = ndb.Key(urlsafe=request.empresa_key) #convierte el string dado a entityKey
-    if user.usuario_m(request, user.empresa_key)==0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
-     codigo=1
-    else:
-     codigo=-3
-                       #la funcion josue_m puede actualizar e insertar
-                       #depende de la ENTRADA de este endpoint method
-    message = CodeMessage(code=codigo, message='Succesfully added')
-   else:
-    message = CodeMessage(code=-4, message='El email ya ha sido registrado')
-  except jwt.DecodeError:
-   message = CodeMessage(code=-2, message='Invalid token')
-  except jwt.ExpiredSignatureError:
-   message = CodeMessage(code=-1, message='Token expired')
-  return message
+        if user.usuario_m(request, user.empresa_key) == 0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
+          codigo = 1
+        
+        else:
+          codigo = -3
+                         #la funcion josue_m puede actualizar e insertar
+                         #depende de la ENTRADA de este endpoint method
+        message = CodeMessage(code = codigo, message = 'Succesfully added')
+    
+      else:
+        message = CodeMessage(code = -4, message = 'El email ya ha sido registrado')
+    
+    except jwt.DecodeError:
+      message = CodeMessage(code = -2, message = 'Invalid token')
+    
+    except jwt.ExpiredSignatureError:
+      message = CodeMessage(code = -1, message = 'Token expired')
+    
+    return message
 
 
 ##login##
@@ -340,8 +369,6 @@ class EmpresasApi(remote.Service):
    message = CodeMessage(code=-1, message='Token expired')
   return message
 
-
-
 # update
 #                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
  @endpoints.method(EmpresaUpdate, CodeMessage, path='empresa/update', http_method='POST', name='empresa.update')
@@ -364,8 +391,6 @@ class EmpresasApi(remote.Service):
   except jwt.ExpiredSignatureError:
    message = CodeMessage(code=-1, message='Token expired')
   return message
-
-
 
 # list
 #                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
