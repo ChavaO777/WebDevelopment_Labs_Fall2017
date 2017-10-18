@@ -1,0 +1,70 @@
+new - web token api
+1.- update models (Product)
+class Product(CustomBaseModel):
+_message_fields_schema = ('entityKey', 'code', 'description', 'urlImage')
+user_key = ndb.KeyProperty(kind=Usuarios)
+code = ndb.StringProperty()
+description = ndb.StringProperty()
+urlImage = ndb.StringProperty()
+
+
+2.- add operation
+### Add product ####
+def product_m(self, data, userkey):
+product = Product()#Crea una variable de tipo Tweet
+product.populate(data)#Llena la variables con los datos dados por el request en main.py
+product.user_key=userkey#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+product.put()#inserta o hace un update depende del main.py
+return 0
+
+
+3.- in web_token_api.py import Product
+from models import Empresa, Usuarios, Tweet, Product
+
+
+4.- create new rest_api in web_token_api.py
+###############
+# Products
+###############
+@endpoints.api(name='products_api', version='v1', description='products endpoints')
+class ProductsApi(remote.Service):
+
+
+5.- add product_add
+# ENTRADA SALIDA RUTA siempre es POST NOMBRE
+@endpoints.method(ProductInput, CodeMessage, path='product/insert', http_method='POST', name='product.insert')
+#siempre lleva cls y request
+def product_add(cls, request):
+try:
+token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
+user = Usuarios.get_by_id(token['user_id']) #obtiene el usuario para poder acceder a los metodos declarados en models.py en la seccion de
+myproduct = Product()
+if myproduct.product_m(request, user.key)==0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
+codigo=1
+else:
+codigo=-3
+#la funcion josue_m puede actualizar e insertar
+#depende de la ENTRADA de este endpoint method
+message = CodeMessage(code=codigo, message='Product added')
+except jwt.DecodeError:
+message = CodeMessage(code=-2, message='Invalid token')
+except jwt.ExpiredSignatureError:
+message = CodeMessage(code=-1, message='Token expired')
+return message
+
+
+6.- create message Class ProductInput in messages.py
+#Mensaje de Entrada y Salida para Tweets
+class ProductInput(messages.Message):
+token = messages.StringField(1, required=True) 
+code = messages.StringField(2)
+description = messages.StringField(3)
+urlImage = messages.StringField(5)
+
+
+7.- import messages in web_token_api
+from messages import ProductInput # UserUpdate, UserList
+
+
+8.- include api in
+application = endpoints.api_server([UsuariosApi, EmpresasApi, TweetApi, ProductApi], restricted=False)

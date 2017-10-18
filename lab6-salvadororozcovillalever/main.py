@@ -363,6 +363,7 @@ app = webapp2.WSGIApplication([
  	('/readOneUser', ReadOneUserHandler),
  	('/updateUser', UpdateUserHandler),
 	('/deleteUser', DeleteUserHandler),
+	########################################
 	('/up', UpHandler),
 	########################################
 	('/createTweet', CreateTweetHandler),
