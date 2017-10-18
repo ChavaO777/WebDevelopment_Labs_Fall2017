@@ -106,6 +106,30 @@ class ProductsApi(remote.Service):
       message = ProductList(code=-2, data=[]) #token expiro
     return message
 
+  @endpoints.method(ProductUpdate, CodeMessage, path='products/update', http_method='POST', name='products.update')
+  #siempre lleva cls y request
+  def product_update(cls, request):
+    try:
+      token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
+      user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario para poder acceder a los metodos declarados en models.py en la seccion de USUARIOS
+      product = Product()
+
+      # empresakey = ndb.Key(urlsafe=user.empresa_key.urlsafe())#convierte el string dado a entityKey
+      if product.product_m(request, user.key) == 0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
+        codigo = 1
+      
+      else:
+        codigo = -3
+        #la funcion josue_m puede actualizar e insertar
+        #depende de la ENTRADA de este endpoint method
+      
+      message = CodeMessage(code = 1, message='Sus cambios han sido guardados exitosamente')
+    except jwt.DecodeError:
+      message = CodeMessage(code = -2, message='Invalid token')
+    except jwt.ExpiredSignatureError:
+      message = CodeMessage(code = -1, message='Token expired')
+    return message
+
 ###############
 # Usuarios
 ###############
@@ -165,14 +189,14 @@ class UsuariosApi(remote.Service):
  #siempre lleva cls y request
  def user_remove(cls, request):
   try:
-   token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
-   usersentity = ndb.Key(urlsafe=request.entityKey)#Obtiene el elemento dado el EntitKey
-   usersentity.delete()#BORRA
-   message = CodeMessage(code=1, message='Succesfully deleted')
+    token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+    usersentity = ndb.Key(urlsafe=request.entityKey)#Obtiene el elemento dado el EntitKey
+    usersentity.delete()#BORRA
+    message = CodeMessage(code=1, message='Succesfully deleted')
   except jwt.DecodeError:
-   message = CodeMessage(code=-2, message='Invalid token')
+    message = CodeMessage(code=-2, message='Invalid token')
   except jwt.ExpiredSignatureError:
-   message = CodeMessage(code=-1, message='Token expired')
+    message = CodeMessage(code=-1, message='Token expired')
   return message
 
 # insert
