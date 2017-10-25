@@ -95,7 +95,7 @@ class LoginHandler(webapp2.RequestHandler):
 
     template_context = {}
     self.response.out.write(
-      self._render_template('login.html', template_context))
+      self._render_template('login-register.html', template_context))
 
    def _render_template(self, template_name, context=None):
     if context is None:
@@ -137,10 +137,114 @@ class MainHandler(webapp2.RequestHandler):
     template = jinja_env.get_template(template_name)
     return template.render(context)
 
+class GetHome1Handler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('index.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class GetHome2Handler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('index-2.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class GetHome3Handler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('index-3.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class GetHome4Handler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('index-4.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class MyPropertiesHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('my-properties.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context) 
+
+class SubmitPropertyHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('submit-property.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context) 
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LoginHandler),
     ('/tweets', TweetHandler),
     ('/up', UpHandler),
     ('/gettweets', GetTweetsHandler),
+    #################################
+    ('/home1', GetHome1Handler),
+    ('/home2', GetHome2Handler),
+    ('/home3', GetHome3Handler),
+    ('/home4', GetHome4Handler),
+    ################################
+    ('/myProperties', MyPropertiesHandler),
+    ('/submitProperty', SubmitPropertyHandler)
 ], debug = True)

@@ -109,7 +109,8 @@ class Company(CustomBaseModel):
 #### Property
 ###########################
 class Property(CustomBaseModel):
-    _message_fields_schema = ('latitude', 
+    _message_fields_schema = ('title',
+                              'latitude', 
                               'longitude', 
                               'rooms', 
                               'bathrooms', 
@@ -120,6 +121,7 @@ class Property(CustomBaseModel):
                               'country', 
                               'photourl')
 
+    title = ndb.StringProperty()
     latitude = ndb.StringProperty()
     longitude = ndb.StringProperty()
     rooms = ndb.StringProperty()

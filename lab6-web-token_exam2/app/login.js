@@ -9,31 +9,27 @@ function LoginObject(myEmail, myPasswd) {
 function loginDemo()
 {
 	//alert("testing...")
-	var myData = new LoginObject(
-    $("#email").val(), 
-    $("#passwd").val());
-	
-  alert(myData.toJsonString());
+	var myData = new LoginObject($("#email").val(), $("#password").val());
+    alert(myData.toJsonString());
 
-	 jQuery.ajax({
-         type: "POST",
-         url: "http://localhost:8080/_ah/api/usuarios_api/v1/users/login",
-         data: myData.toJsonString(),
-         contentType: "application/json; charset=utf-8",
-         dataType: "json",
-         success: function (response) {
+	jQuery.ajax({
+         
+        type: "POST",
+        url: "http://localhost:8080/_ah/api/usuarios_api/v1/users/login",
+        data: myData.toJsonString(),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
               // do something
               sessionStorage.token = response.token;
               alert ("token generado: " + sessionStorage.token);
-              window.location = "/tweets";
-
-         },
+              window.location = "/";
+        },
      
-         error: function (error) {            
+        error: function (error) {            
               // error handler
               alert(error)
-         }
-
-     });
+        }
+    });
 
 }

@@ -122,20 +122,7 @@ class CompanyList(messages.Message):
 ###########################
 class PropertyInput(messages.Message):
     token = messages.StringField(1, required=True) 
-    latitude = messages.StringField(2)
-    longitude = messages.StringField(3)
-    rooms = messages.StringField(4)
-    bathrooms = messages.StringField(5)
-    propertyType = messages.StringField(6)
-    yearBuilt = messages.StringField(7)
-    squareMeters = messages.StringField(8)
-    state = messages.StringField(9)
-    country = messages.StringField(10)
-    photourl = messages.StringField(11)
-
-class PropertyUpdate(messages.Message):
-    token = messages.StringField(1, required=True)
-    entityKey = messages.StringField(2, required=True)
+    title = messages.StringField(2)
     latitude = messages.StringField(3)
     longitude = messages.StringField(4)
     rooms = messages.StringField(5)
@@ -146,6 +133,21 @@ class PropertyUpdate(messages.Message):
     state = messages.StringField(10)
     country = messages.StringField(11)
     photourl = messages.StringField(12)
+
+class PropertyUpdate(messages.Message):
+    token = messages.StringField(1, required=True)
+    entityKey = messages.StringField(2, required=True)
+    title = messages.StringField(3)
+    latitude = messages.StringField(5)
+    longitude = messages.StringField(6)
+    rooms = messages.StringField(7)
+    bathrooms = messages.StringField(8)
+    propertyType = messages.StringField(9)
+    yearBuilt = messages.StringField(10)
+    squareMeters = messages.StringField(11)
+    state = messages.StringField(12)
+    country = messages.StringField(13)
+    photourl = messages.StringField(14)
 
 #regresa una lista para la base de datos Property
 class PropertyList(messages.Message):
