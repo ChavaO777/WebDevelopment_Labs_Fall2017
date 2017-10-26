@@ -30,7 +30,7 @@ function getMyProperties()
 
                     myTableProperties += "<tr>" +
                                             "<td class='title-container'>" + 
-                                                "<img src='images/listing-02.jpg' alt=''>" +
+                                                "<img src=" + property.photourl + "alt=''>" +
                                                 "<div class='title'>" +
                                                     "<h4><a href='#'>" + property.title + "</a></h4>" +
                                                     "<span>" + property.address + "</span>" +

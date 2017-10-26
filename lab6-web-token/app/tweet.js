@@ -13,8 +13,6 @@ function addTweetDemo()
 {
 	try
   {
-
-
     alert("token : " + sessionStorage.token);
 
   	var myData = new TweetObject($("#title").val(), 

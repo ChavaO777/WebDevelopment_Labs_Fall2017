@@ -39,6 +39,7 @@ function addProperty()
 	try
     {
         alert("token : " + sessionStorage.token);
+        var photourl = $("#photourl").val();
 
         var myData = new PropertyObject($("#title").val(),
                                         $("#status").val(),
@@ -53,8 +54,8 @@ function addProperty()
                                         $("#propertyType").val(),
                                         $("#yearBuilt").val(),
                                         $("#area").val(),
-                                        $("#description").val(),
-                                        $("#photourl").val());
+                                        $("#photourl").val(),
+                                        $("#description").val());
         
         alert(myData.toJsonString());
 
@@ -69,6 +70,7 @@ function addProperty()
             success: function (response) {
                     // do something
                     alert (response.code + " " + response.message);
+                    upload(photourl);
             },
         
             error: function (error) {            
@@ -119,4 +121,36 @@ function getPropertyList()
         alert(error);
    }
 
+}
+
+function upload(photourl)
+{
+    var file_data = photourl;
+    var form_data = new FormData();
+    form_data.append("uploaded_file", file_data)
+
+    jQuery.support.cors = true;
+    try
+    {
+        $.ajax({
+            url: "http://localhost:8080/up",
+            dataType: 'text',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            crossDomain: true,
+            success: function(response){
+
+                // document.getElementById("preview").src = response;
+                sessionStorage.urlImage = response;
+                // document.getElementById("url_photo").value = response;
+            }
+        });
+    }
+    catch(e)
+    {
+        alert("error : " +  e);
+    }
 }

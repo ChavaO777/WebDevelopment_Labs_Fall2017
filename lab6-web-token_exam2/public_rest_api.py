@@ -14,15 +14,13 @@ from models import Empresa, Usuarios, Property
 from models import Tweet
 
 jinja_env = jinja2.Environment(
- loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
-
+    loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 class DemoClass(object):
- pass
+    pass
 
 def MyClass(obj):
- return obj.__dict__
-
+    return obj.__dict__
 
 class GetTweetsHandler(webapp2.RequestHandler):
 
@@ -52,39 +50,38 @@ class GetTweetsHandler(webapp2.RequestHandler):
 class UpHandler(webapp2.RequestHandler):
     def _get_urls_for(self, file_name):
         
-     bucket_name = app_identity.get_default_gcs_bucket_name()
-     path = os.path.join('/', bucket_name, file_name)
-     real_path = '/gs' + path
-     key = blobstore.create_gs_key(real_path)
-     try:
-      url = images.get_serving_url(key, size=0)
-     except images.TransformationError, images.NotImageError:
-      url = "http://storage.googleapis.com{}".format(path)
+        bucket_name = app_identity.get_default_gcs_bucket_name()
+        path = os.path.join('/', bucket_name, file_name)
+        real_path = '/gs' + path
+        key = blobstore.create_gs_key(real_path)
+        
+        try:
+            url = images.get_serving_url(key, size=0)
+        except images.TransformationError, images.NotImageError:
+            url = "http://storage.googleapis.com{}".format(path)
 
-     return url
-
+        return url
 
     def post(self):
-     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
-     self.response.headers['Content-Type'] = 'application/json'
+        self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+        self.response.headers['Content-Type'] = 'application/json'
 
-     bucket_name = app_identity.get_default_gcs_bucket_name()
-     uploaded_file = self.request.POST.get('uploaded_file')
-     file_name = getattr(uploaded_file, 'filename', None)
-     file_content = getattr(uploaded_file, 'file', None)
-     real_path = ''
+        bucket_name = app_identity.get_default_gcs_bucket_name()
+        uploaded_file = self.request.POST.get('uploaded_file')
+        file_name = getattr(uploaded_file, 'filename', None)
+        file_content = getattr(uploaded_file, 'file', None)
+        real_path = ''
 
-     if file_name and file_content:
-      content_t = mimetypes.guess_type(file_name)[0]
-      real_path = os.path.join('/', bucket_name, file_name)
+        if file_name and file_content:
+            content_t = mimetypes.guess_type(file_name)[0]
+            real_path = os.path.join('/', bucket_name, file_name)
 
-      with cloudstorage.open(real_path, 'w', content_type=content_t,
-       options={'x-goog-acl': 'public-read'}) as f:
-       f.write(file_content.read())
+        with cloudstorage.open(real_path, 'w', 
+                               content_type=content_t,
+                               options={'x-goog-acl': 'public-read'}) as f: f.write(file_content.read())
 
-      key = self._get_urls_for(file_name)
-      self.response.write(key)
-
+        key = self._get_urls_for(file_name)
+        self.response.write(key)
 
 class LoginHandler(webapp2.RequestHandler):
 
@@ -92,143 +89,134 @@ class LoginHandler(webapp2.RequestHandler):
 
     template_context = {}
     self.response.out.write(
-      self._render_template('login-register.html', template_context))
+        self._render_template('login-register.html', template_context))
 
    def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
+        if context is None:
+            context = {}
 
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
-
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class TweetHandler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('tweet.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('tweet.html', template_context))
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
-
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class MainHandler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('index.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('index.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class GetHome1Handler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('index.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('index.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class GetHome2Handler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('index-2.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('index-2.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class GetHome3Handler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('index-3.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('index-3.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class GetHome4Handler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('index-4.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('index-4.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
+        template = jinja_env.get_template(template_name)
+        return template.render(context)
 
 class MyPropertiesHandler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('my-properties.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('my-properties.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context) 
+        template = jinja_env.get_template(template_name)
+        return template.render(context) 
 
 class SubmitPropertyHandler(webapp2.RequestHandler):
 
-   def get(self):
+    def get(self):
 
-    template_context = {}
-    self.response.out.write(
-      self._render_template('submit-property.html', template_context))
+        template_context = {}
+        self.response.out.write(
+            self._render_template('submit-property.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
 
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context) 
+        template = jinja_env.get_template(template_name)
+        return template.render(context) 
 
 class AddPropertyHandler(webapp2.RequestHandler):
 
@@ -306,6 +294,22 @@ class GetMyPropertiesHandler(webapp2.RequestHandler):
         json_string = json.dumps(myList, default=MyClass)
         self.response.write(json_string)
 
+class ProfileHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('my-profile.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context) 
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LoginHandler),
@@ -321,5 +325,7 @@ app = webapp2.WSGIApplication([
     ('/myProperties', MyPropertiesHandler),
     ('/submitProperty', SubmitPropertyHandler),
     ('/addProperty', AddPropertyHandler),
-    ('/getMyProperties', GetMyPropertiesHandler)
+    ('/getMyProperties', GetMyPropertiesHandler),
+    ################################
+    ('/myProfile', ProfileHandler)
 ], debug = True)
