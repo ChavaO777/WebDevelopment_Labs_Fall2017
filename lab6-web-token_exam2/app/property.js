@@ -87,5 +87,36 @@ function TokenObject() {
     
     this.tokenint = sessionStorage.token;
     this.toJsonString = function () { return JSON.stringify(this); };
-
 };
+
+function getPropertyList()
+{
+    try
+    {
+        //alert("token : " + sessionStorage.token);
+        var myData = new TokenObject();
+        alert(myData.toJsonString());
+
+        jQuery.ajax({
+            type: "POST",
+            url: "http://localhost:8080/_ah/api/property_api/v1/property/list",
+            data: myData.toJsonString(),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                // do something
+                alert (response.data);
+            },
+       
+            error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+            }
+        });
+   }
+   catch(error)
+   {
+        alert(error);
+   }
+
+}

@@ -7,6 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+<script src="app/getPrivateData.js"></script>
+
 <!-- CSS
 ================================================== -->
 <link rel="stylesheet" href="css/style.css">
@@ -14,7 +16,7 @@
 
 </head>
 
-<body>
+<body onload="getMyProperties()" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -351,17 +353,21 @@
 			</div>
 		</div>
 
-		<div class="col-md-8">
+		<div class="col-md-8" id="listProperties">
+
+		</div>
+
+		<!-- <div class="col-md-8">
 			<table class="manage-table responsive-table">
 
 				<tr>
 					<th><i class="fa fa-file-text"></i> Property</th>
 					<th class="expire-date"><i class="fa fa-calendar"></i> Expiration Date</th>
 					<th></th>
-				</tr>
+				</tr> -->
 
 				<!-- Item #1 -->
-				<tr>
+				<!-- <tr>
 					<td class="title-container">
 						<img src="images/listing-02.jpg" alt="">
 						<div class="title">
@@ -376,10 +382,10 @@
 						<a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
 						<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 					</td>
-				</tr>
+				</tr> -->
 
 				<!-- Item #2 -->
-				<tr>
+				<!-- <tr>
 					<td class="title-container">
 						<img src="images/listing-05.jpg" alt="">
 						<div class="title">
@@ -394,10 +400,10 @@
 						<a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
 						<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 					</td>
-				</tr>
+				</tr> -->
 
 				<!-- Item #3 -->
-				<tr>
+				<!-- <tr>
 					<td class="title-container">
 						<img src="images/listing-04.jpg" alt="">
 						<div class="title">
@@ -412,10 +418,10 @@
 						<a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
 						<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 					</td>
-				</tr>
+				</tr> -->
 
 				<!-- Item #4 -->
-				<tr>
+				<!-- <tr>
 					<td class="title-container">
 						<img src="images/listing-06.jpg" alt="">
 						<div class="title">
@@ -430,12 +436,11 @@
 						<a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
 						<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
 					</td>
-				</tr>
+				</tr> -->
 
-			</table>
+			<!-- </table>
 			<a href="/submitProperty" class="margin-top-40 button">Submit New Property</a>
-		</div>
-
+		</div> -->
 	</div>
 </div>
 
@@ -524,7 +529,6 @@
 <script type="text/javascript" src="scripts/mmenu.min.js"></script>
 <script type="text/javascript" src="scripts/tooltips.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
-
 
 <!-- Style Switcher
 ================================================== -->

@@ -284,9 +284,9 @@ class UsuariosApi(remote.Service):
    user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario para poder acceder a los metodos declarados en models.py en la seccion de USUARIOS
    empresakey = ndb.Key(urlsafe=user.empresa_key.urlsafe())#convierte el string dado a entityKey
    if user.usuario_m(request, empresakey)==0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
-    codigo=1
+    codigo = 1
    else:
-    codigo=-3
+    codigo = -3
       #la funcion josue_m puede actualizar e insertar
       #depende de la ENTRADA de este endpoint method
    message = CodeMessage(code=1, message='Sus cambios han sido guardados exitosamente')
@@ -639,9 +639,8 @@ class PropertyApi(remote.Service):
       user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario models.py 
       
       myProperty = Property()
-      userKey = user.key
       
-      if myProperty.property_m(request, userKey) == 0: 
+      if myProperty.property_m(request, user.key) == 0: 
         codigo = 1
       
       else:

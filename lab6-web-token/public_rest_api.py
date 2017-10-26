@@ -27,30 +27,29 @@ def MyClass(obj):
 class GetTweetsHandler(webapp2.RequestHandler):
 
     def get(self):
-     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
-     self.response.headers['Content-Type'] = 'application/json'
+      
+      self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+      self.response.headers['Content-Type'] = 'application/json'
 
-     id_empresa = self.request.get('empresa')
-     objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
-     strKey = objemp.key.urlsafe() 
-     myEmpKey = ndb.Key(urlsafe=strKey) 
-     myTweets = Tweet.query(Tweet.empresa_key == myEmpKey)
+      id_empresa = self.request.get('empresa')
+      objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
+      strKey = objemp.key.urlsafe() 
+      myEmpKey = ndb.Key(urlsafe=strKey) 
+      myTweets = Tweet.query(Tweet.empresa_key == myEmpKey)
 
-     myList = []
-     for i in myTweets:
-      myObj = DemoClass()
-      myObj.title = i.title
-      myObj.description = i.description
-      myObj.urlImage = i.urlImage
-      myList.append(myObj)
-       
-     json_string = json.dumps(myList, default=MyClass)
-     self.response.write(json_string)
-
-
+      myList = []
+      
+      for i in myTweets:
+        myObj = DemoClass()
+        myObj.title = i.title
+        myObj.description = i.description
+        myObj.urlImage = i.urlImage
+        myList.append(myObj)
+         
+      json_string = json.dumps(myList, default=MyClass)
+      self.response.write(json_string)
 
 ###########################################################################     
-
 
 class UpHandler(webapp2.RequestHandler):
     def _get_urls_for(self, file_name):

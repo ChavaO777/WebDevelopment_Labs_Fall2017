@@ -33,7 +33,7 @@ class Empresa(CustomBaseModel):
         return 0
 
 ###############
-# Usuarios
+#### Usuarios
 ###############
 class Usuarios(CustomBaseModel):
     _message_fields_schema = ('entityKey', 'email', 'password', 'salt')
@@ -72,7 +72,7 @@ class Usuarios(CustomBaseModel):
         return 0
 
 ###############
-# Product
+#### Product
 ###############
 class Product(CustomBaseModel):
     _message_fields_schema = ('entityKey', 'code', 'description', 'urlImage')
@@ -126,7 +126,7 @@ class Property(CustomBaseModel):
                               'photourl',
                               'description')
 
-    user_key = ndb.KeyProperty(kind=Usuarios)
+    usuario_key = ndb.KeyProperty(kind=Usuarios)
     title = ndb.StringProperty()
     status = ndb.StringProperty()
     price = ndb.StringProperty()
@@ -143,11 +143,11 @@ class Property(CustomBaseModel):
     photourl = ndb.StringProperty()
     description = ndb.StringProperty()
 
-    def property_m(self, data, userkey):
+    def property_m(self, data, usuario_key):
 
         myProperty = Property()
         myProperty.populate(data)
-        myProperty.user_key = userkey
+        myProperty.usuario_key = usuario_key
         myProperty.put()
         return 0
 
@@ -179,7 +179,6 @@ def validarEmail(email):
         return True
 
 #### create root Empresa
-
 if validarEmail("adsoft@kubeet.com") == False:
     
     empresaAdmin = Empresa(
