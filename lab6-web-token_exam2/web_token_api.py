@@ -437,13 +437,19 @@ class CompaniesApi(remote.Service):
       token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
       #Obtiene el elemento dado el entityKey
       companyEntity = ndb.Key(urlsafe = request.entityKey)
-      message = CompanyList(code = 1, data = [CompanyUpdate(token='Succesfully get',
-                                                            entityKey = companyEntity.get().entityKey,
-                                                            name = companyEntity.get().name,
-                                                            address = companyEntity.get().address,
-                                                            RFC = companyEntity.get().RFC,
-                                                            photourl = companyEntity.get().photourl)])
-    
+      company = Company.get_by_id(companyEntity.id())
+
+      myList = []
+      listMessage = CompanyList(code=1)
+      myList.append(CompanyUpdate(token='',
+                                  name = company.get().name,
+                                  address = company.get().address,
+                                  RFC = company.get().RFC,
+                                  photourl = company.get().photourl))
+
+      listMessage.data = myList
+      message = listMessage
+
     except jwt.DecodeError:
       message = CompanyList(code = -1, data = [])
     
@@ -479,6 +485,7 @@ class CompaniesApi(remote.Service):
 
       token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
       user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario models.py 
+      
       myCompany = Company()
       
       if myCompany.company_m(request) == 0: 
@@ -560,8 +567,8 @@ class CompaniesApi(remote.Service):
 ###########################
 
 ## Google Cloud Endpoint
-@endpoints.api(name='properties_api', version='v1', description='properties REST API')
-class PropertiesApi(remote.Service):
+@endpoints.api(name='property_api', version='v1', description='property REST API')
+class PropertyApi(remote.Service):
 
   #get one property
   @endpoints.method(TokenKey, PropertyList, path='property/get', http_method='POST', name='property.get')
@@ -571,18 +578,30 @@ class PropertiesApi(remote.Service):
       token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
       #Obtiene el elemento dado el entityKey
       propertyEntity = ndb.Key(urlsafe = request.entityKey)
-      message = PropertyList(code = 1, data = [PropertyUpdate(token = 'Succesfully get',
-                                                                entityKey = propertyEntity.get().entityKey,
-                                                                latitude = propertyEntity.get().latitude,
-                                                                longitude = propertyEntity.get().longitude,
-                                                                rooms = propertyEntity.get().rooms,
-                                                                bathrooms = propertyEntity.get().bathrooms,
-                                                                propertyType = propertyEntity.get().propertyType,
-                                                                yearBuilt = propertyEntity.get().yearBuilt,
-                                                                squareMeters = propertyEntity.get().squareMeters,
-                                                                state = propertyEntity.get().state,
-                                                                country = propertyEntity.get().country,
-                                                                photourl = propertyEntity.get().photourl)])
+      myProperty = Property.get_by_id(propertyEntity.id())
+
+      myList = []
+      listMessage = PropertyList(code=1)
+      myList.append(PropertyUpdate(token = '',
+                                   entityKey = propertyEntity.get().entityKey,
+                                   title = propertyEntity.get().title,
+                                   status = propertyEntity.get().status,
+                                   price = propertyEntity.get().price,
+                                   address = propertyEntity.get().address,
+                                   city = propertyEntity.get().city,
+                                   state = propertyEntity.get().state,
+                                   country = propertyEntity.get().country,
+                                   zipcode = propertyEntity.get().zipcode,
+                                   rooms = propertyEntity.get().rooms,
+                                   bathrooms = propertyEntity.get().bathrooms,
+                                   propertyType = propertyEntity.get().propertyType,
+                                   yearBuilt = propertyEntity.get().yearBuilt,
+                                   area = propertyEntity.get().area,
+                                   photourl = propertyEntity.get().photourl,
+                                   description = propertyEntity.get().description))
+
+      listMessage.data = myList
+      message = listMessage
     
     except jwt.DecodeError:
       message = PropertyList(code = -1, data = [])
@@ -599,7 +618,7 @@ class PropertiesApi(remote.Service):
       
       token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
       propertyEntity = ndb.Key(urlsafe = request.entityKey)#Obtiene el elemento dado el EntitKey
-      propertyEntity.delete()#BORRA
+      propertyEntity.delete()
       message = CodeMessage(code = 1, message = 'Succesfully deleted')
     
     except jwt.DecodeError:
@@ -618,9 +637,11 @@ class PropertiesApi(remote.Service):
 
       token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
       user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario models.py 
-      myProperty = Property()
       
-      if myProperty.property_m(request) == 0: 
+      myProperty = Property()
+      userKey = user.key
+      
+      if myProperty.property_m(request, userKey) == 0: 
         codigo = 1
       
       else:
@@ -646,8 +667,9 @@ class PropertiesApi(remote.Service):
       token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN 
       user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario para poder acceder a los metodos declarados en models.py en la seccion de USUARIOS
       myProperty = Property()
-      
-      if myProperty.property_m(request) == 0:
+      userKey = user.key
+
+      if myProperty.property_m(request, userKey) == 0:
         codigo = 1
       else:
         codigo = -3
@@ -675,16 +697,21 @@ class PropertiesApi(remote.Service):
       for i in lstBdProperty: #recorre la base de datos
         lista.append(PropertyUpdate(token = '', 
                                     entityKey = i.entityKey,
-                                    latitude = i.latitude,
-                                    longitude = i.longitude,
+                                    title = i.title,
+                                    status = i.status,
+                                    price = i.price,
+                                    address = i.address,
+                                    city = i.city,
+                                    state = i.state,
+                                    country = i.country,
+                                    zipcode = i.zipcode,
                                     rooms = i.rooms,
                                     bathrooms = i.bathrooms,
                                     propertyType = i.propertyType,
                                     yearBuilt = i.yearBuilt,
-                                    squareMeters = i.squareMeters,
-                                    state = i.state,
-                                    country = i.country,
-                                    photourl = i.photourl))
+                                    area = i.area,
+                                    photourl = i.photourl,
+                                    description = i.description))
         
       lstMessage.data = lista #ASIGNA a la salida la lista
       message = lstMessage
@@ -818,5 +845,5 @@ class TweetApi(remote.Service):
   return message
 
 
-application = endpoints.api_server([UsuariosApi, EmpresasApi, TweetApi, ProductsApi, CompaniesApi, PropertiesApi], restricted=False)
+application = endpoints.api_server([UsuariosApi, EmpresasApi, TweetApi, ProductsApi, CompaniesApi, PropertyApi], restricted=False)
 

@@ -233,6 +233,58 @@ class SubmitPropertyHandler(webapp2.RequestHandler):
     template = jinja_env.get_template(template_name)
     return template.render(context) 
 
+class AddPropertyHandler(webapp2.RequestHandler):
+
+    def post(self):
+
+        self.response.headers.add_header('Access-Control-Allow-Origin ', '*') ##Query from any client ("firewall" to allow crossdomain)
+        self.response.headers['Content-Type'] = 'application/json'
+        c = ModelClass()
+        
+        try:
+            myTitle = self.request.get('title')
+            myStatus = self.request.get('status')
+            myPrice = self.request.get('price')
+            myAddress = self.request.get('address')
+            myCity = self.request.get('city')
+            myState = self.request.get('state')
+            myCountry = self.request.get('country')
+            myZipCode = self.request.get('zipcode')
+            myRooms = self.request.get('rooms')
+            myBathrooms = self.request.get('bathrooms')
+            myPropertyType = self.request.get('propertyType')
+            myYearBuilt = self.request.get('yearBuilt')
+            myArea = self.request.get('area')
+            myPhotoUrl = self.request.get('photourl')
+            myDescription = self.request.get('description')
+
+            myNewProperty = Property(title = myTitle,
+                                    status = myStatus,
+                                    price = myPrice,
+                                    address = myAddress,
+                                    city = myCity,
+                                    state = myState,
+                                    country = myCountry,
+                                    zipcode = myZipCode,
+                                    rooms = myRooms,
+                                    bathrooms = myBathrooms,
+                                    propertyType = myPropertyType,
+                                    yearBuilt = myYearBuilt,
+                                    area = myArea,
+                                    photourl = myPhotoUrl,
+                                    description = myDescription)
+                                    
+            myPropertyKey = myNewProperty.put()
+            
+            c.message = "inserted"
+            c.key = myPropertyKey.urlsafe()
+            
+        except:
+             c.message = "Exception ..."
+             
+        json_string = json.dumps(c, default=ObjectClass)
+        self.response.write(json_string)
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LoginHandler),
@@ -246,5 +298,6 @@ app = webapp2.WSGIApplication([
     ('/home4', GetHome4Handler),
     ################################
     ('/myProperties', MyPropertiesHandler),
-    ('/submitProperty', SubmitPropertyHandler)
+    ('/submitProperty', SubmitPropertyHandler),
+    ('/addProperty', AddPropertyHandler)
 ], debug = True)

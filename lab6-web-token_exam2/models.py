@@ -109,35 +109,46 @@ class Company(CustomBaseModel):
 #### Property
 ###########################
 class Property(CustomBaseModel):
-    _message_fields_schema = ('title',
-                              'latitude', 
-                              'longitude', 
+    _message_fields_schema = ('entityKey',
+                              'title',
+                              'status',
+                              'price',
+                              'address',
+                              'city',
+                              'state',
+                              'country', 
+                              'zipcode',
                               'rooms', 
                               'bathrooms', 
                               'propertyType', 
                               'yearBuilt', 
-                              'squareMeters', 
-                              'state', 
-                              'country', 
-                              'photourl')
+                              'area', 
+                              'photourl',
+                              'description')
 
+    user_key = ndb.KeyProperty(kind=Usuarios)
     title = ndb.StringProperty()
-    latitude = ndb.StringProperty()
-    longitude = ndb.StringProperty()
+    status = ndb.StringProperty()
+    price = ndb.StringProperty()
+    address = ndb.StringProperty()
+    city = ndb.StringProperty()
+    state = ndb.StringProperty()
+    country = ndb.StringProperty()
+    zipcode = ndb.StringProperty()
     rooms = ndb.StringProperty()
     bathrooms = ndb.StringProperty()
     propertyType = ndb.StringProperty()
     yearBuilt = ndb.StringProperty()
-    squareMeters = ndb.StringProperty()
-    state = ndb.StringProperty()
-    country = ndb.StringProperty()
+    area = ndb.StringProperty()
     photourl = ndb.StringProperty()
+    description = ndb.StringProperty()
 
-    def property_m(self, data):
+    def property_m(self, data, userkey):
 
-        property = Property()
-        property.populate(data)
-        property.put()
+        myProperty = Property()
+        myProperty.populate(data)
+        myProperty.user_key = userkey
+        myProperty.put()
         return 0
 
 ###########################
