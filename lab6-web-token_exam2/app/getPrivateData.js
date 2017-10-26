@@ -17,7 +17,7 @@ function getMyProperties()
 
                 $("#listProperties").empty();
                 totalProperties = response;
-                alert(response);
+                // alert(response);
 
                 var myTableProperties = "<table class='manage-table responsive-table'>" +
                                         "<tr>" +
