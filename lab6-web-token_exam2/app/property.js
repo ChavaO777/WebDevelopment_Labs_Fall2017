@@ -1,4 +1,5 @@
-function PropertyObject(myTitle, 
+function PropertyObject(entityKey,
+                        myTitle, 
                         myStatus,
                         myPrice,
                         myAddress,
@@ -14,6 +15,7 @@ function PropertyObject(myTitle,
                         myPhotoUrl,
                         myDescription) {
     
+    this.entityKey = entityKey;
     this.title = myTitle;
     this.status = myStatus;
     this.price = myPrice;
@@ -29,8 +31,14 @@ function PropertyObject(myTitle,
     this.area = myArea;
     this.description = myDescription;
     this.photourl = myPhotoUrl;
-    this.token = sessionStorage.token;
+    this.tokenint = sessionStorage.token;
 
+    this.toJsonString = function () { return JSON.stringify(this); };
+};
+
+function TokenObject() {
+    
+    this.tokenint = sessionStorage.token;
     this.toJsonString = function () { return JSON.stringify(this); };
 };
 
@@ -85,11 +93,39 @@ function addProperty()
     }
 }
 
-function TokenObject() {
-    
-    this.tokenint = sessionStorage.token;
-    this.toJsonString = function () { return JSON.stringify(this); };
-};
+function deleteProperty(propertyKey)
+{
+	try
+    {   
+        var myProperty = new PropertyObject(entityKey = propertyKey);
+        alert("myProperty.toJsonString() = " + myProperty.toJsonString());
+
+        jQuery.support.cors = true;
+
+        jQuery.ajax({
+
+            type: "POST",
+            // url: "https://MI_DOMINIO/_ah/api/property_api/v1/property/delete //Use this when the website is live
+            url: "http://localhost:8080/_ah/api/property_api/v1/property/delete",
+            data: myProperty.toJsonString(),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+            },
+        
+            error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+            }
+        });
+    }
+    catch(error)
+    {
+        alert(error);
+    }
+}
 
 function getPropertyList()
 {

@@ -8,7 +8,6 @@ function TweetObject(myTitle, myDescription) {
 
 };
 
-
 function addTweetDemo()
 {
 	try

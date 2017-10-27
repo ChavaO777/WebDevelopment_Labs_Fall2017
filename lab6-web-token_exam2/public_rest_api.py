@@ -292,6 +292,8 @@ class GetMyPropertiesHandler(webapp2.RequestHandler):
         myList = []
         for i in myProperties:
             myObj = DemoClass()
+            myObj.key = i.key.urlsafe()
+            myObj.id = i.id
             myObj.title = i.title
             myObj.photourl = i.photourl
             myObj.price = i.price

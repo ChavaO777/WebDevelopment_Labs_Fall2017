@@ -617,7 +617,7 @@ class PropertyApi(remote.Service):
     try:
       
       token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
-      propertyEntity = ndb.Key(urlsafe = request.entityKey)#Obtiene el elemento dado el EntitKey
+      propertyEntity = ndb.Key(urlsafe = request.entityKey)#Obtiene el elemento dado el EntityKey
       propertyEntity.delete()
       message = CodeMessage(code = 1, message = 'Succesfully deleted')
     
