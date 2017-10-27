@@ -5,7 +5,6 @@ function PropertyObject(entityKey,
                         myAddress,
                         myCity,
                         myState,
-                        myCountry,
                         myZipCode,
                         myRooms,
                         myBathrooms,
@@ -22,7 +21,6 @@ function PropertyObject(entityKey,
     this.address = myAddress;
     this.city = myCity;
     this.state = myState;
-    this.country = myCountry;
     this.zipcode = myZipCode;
     this.rooms = myRooms;
     this.bathrooms = myBathrooms;
@@ -49,23 +47,24 @@ function addProperty()
         alert("token : " + sessionStorage.token);
         var photourl = $("#photourl").val();
 
-        var myData = new PropertyObject($("#title").val(),
-                                        $("#status").val(),
-                                        $("#price").val(),
-                                        $("#address").val(),
-                                        $("#city").val(),
-                                        $("#state").val(),
-                                        $("#country").val(),
-                                        $("#zipcode").val(),
-                                        $("#rooms").val(),
-                                        $("#bathrooms").val(),
-                                        $("#propertyType").val(),
-                                        $("#yearBuilt").val(),
-                                        $("#area").val(),
-                                        $("#photourl").val(),
-                                        $("#description").val());
+        var myData = new PropertyObject(entityKey = "!!??",
+                                        title = $("#title").val(),
+                                        status = $("#status").val(),
+                                        price = $("#price").val(),
+                                        address = $("#address").val(),
+                                        city = $("#city").val(),
+                                        state = $("#state").val(),
+                                        zipcode = $("#zipcode").val(),
+                                        rooms = $("#rooms").val(),
+                                        bathrooms = $("#bathrooms").val(),
+                                        propertyType = $("#propertyType").val(),
+                                        yearBuilt = $("#yearBuilt").val(),
+                                        area = $("#area").val(),
+                                        photourl = $("#photourl").val(),
+                                        description = $("#description").val());
         
         alert(myData.toJsonString());
+        alert("photourl = " + photourl);
 
         jQuery.ajax({
 
@@ -78,7 +77,7 @@ function addProperty()
             success: function (response) {
                     // do something
                     alert (response.code + " " + response.message);
-                    upload(photourl);
+                    upload();
             },
         
             error: function (error) {            
@@ -159,17 +158,18 @@ function getPropertyList()
 
 }
 
-function upload(photourl)
+function upload()
 {
-    var file_data = photourl;
+    var file_data = $("#uploaded_file").prop("files")[0];
     var form_data = new FormData();
-    form_data.append("uploaded_file", file_data)
+    form_data.append("uploaded_file", file_data);
+    alert("uploading this => " + file_data);
 
     jQuery.support.cors = true;
     try
     {
         $.ajax({
-            url: "http://localhost:8080/up",
+            url: "/up",
             dataType: 'text',
             cache: false,
             contentType: false,
@@ -180,8 +180,15 @@ function upload(photourl)
             success: function(response){
 
                 // document.getElementById("preview").src = response;
+                alert("response" + response);
                 sessionStorage.urlImage = response;
                 // document.getElementById("url_photo").value = response;
+                alert(sessionStorage.urlImage);
+            },
+
+            error: function (error) {            
+                // error handler
+                alert("WTF!!?? -> error :" + error.message)
             }
         });
     }

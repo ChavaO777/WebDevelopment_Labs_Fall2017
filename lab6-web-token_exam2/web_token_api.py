@@ -635,7 +635,7 @@ class PropertyApi(remote.Service):
   def property_add(cls, request):
     try:
 
-      token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
+      token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
       user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario models.py 
       
       myProperty = Property()

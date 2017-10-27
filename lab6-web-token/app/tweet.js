@@ -86,7 +86,7 @@ function uploadDemo()
 {
   var file_data = $("#uploaded_file").prop("files")[0];
   var form_data = new FormData();
-  form_data.append("uploaded_file", file_data)
+  form_data.append("uploaded_file", file_data);
 
   jQuery.support.cors = true;
   try

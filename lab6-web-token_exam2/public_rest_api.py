@@ -63,25 +63,24 @@ class UpHandler(webapp2.RequestHandler):
         return url
 
     def post(self):
-     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
-     self.response.headers['Content-Type'] = 'application/json'
+        self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+        self.response.headers['Content-Type'] = 'application/json'
 
-     bucket_name = app_identity.get_default_gcs_bucket_name()
-     uploaded_file = self.request.POST.get('uploaded_file')
-     file_name = getattr(uploaded_file, 'filename', None)
-     file_content = getattr(uploaded_file, 'file', None)
-     real_path = ''
+        bucket_name = app_identity.get_default_gcs_bucket_name()
+        uploaded_file = self.request.POST.get('uploaded_file')
+        file_name = getattr(uploaded_file, 'filename', None)
+        file_content = getattr(uploaded_file, 'file', None)
+        real_path = ''
 
-     if file_name and file_content:
-      content_t = mimetypes.guess_type(file_name)[0]
-      real_path = os.path.join('/', bucket_name, file_name)
+        if file_name and file_content:
+            content_t = mimetypes.guess_type(file_name)[0]
+            real_path = os.path.join('/', bucket_name, file_name)
 
-      with cloudstorage.open(real_path, 'w', content_type=content_t,
-       options={'x-goog-acl': 'public-read'}) as f:
-       f.write(file_content.read())
+            with cloudstorage.open(real_path, 'w', content_type=content_t, options={'x-goog-acl': 'public-read'}) as f:
+                f.write(file_content.read())
 
-      key = self._get_urls_for(file_name)
-      self.response.write(key)
+            key = self._get_urls_for(file_name)
+            self.response.write(key)
 
 class LoginHandler(webapp2.RequestHandler):
 
@@ -225,58 +224,6 @@ class SubmitPropertyHandler(webapp2.RequestHandler):
         template = jinja_env.get_template(template_name)
         return template.render(context) 
 
-class AddPropertyHandler(webapp2.RequestHandler):
-
-    def post(self):
-
-        self.response.headers.add_header('Access-Control-Allow-Origin ', '*') ##Query from any client ("firewall" to allow crossdomain)
-        self.response.headers['Content-Type'] = 'application/json'
-        c = ModelClass()
-        
-        try:
-            myTitle = self.request.get('title')
-            myStatus = self.request.get('status')
-            myPrice = self.request.get('price')
-            myAddress = self.request.get('address')
-            myCity = self.request.get('city')
-            myState = self.request.get('state')
-            myCountry = self.request.get('country')
-            myZipCode = self.request.get('zipcode')
-            myRooms = self.request.get('rooms')
-            myBathrooms = self.request.get('bathrooms')
-            myPropertyType = self.request.get('propertyType')
-            myYearBuilt = self.request.get('yearBuilt')
-            myArea = self.request.get('area')
-            myPhotoUrl = self.request.get('photourl')
-            myDescription = self.request.get('description')
-
-            myNewProperty = Property(title = myTitle,
-                                    status = myStatus,
-                                    price = myPrice,
-                                    address = myAddress,
-                                    city = myCity,
-                                    state = myState,
-                                    country = myCountry,
-                                    zipcode = myZipCode,
-                                    rooms = myRooms,
-                                    bathrooms = myBathrooms,
-                                    propertyType = myPropertyType,
-                                    yearBuilt = myYearBuilt,
-                                    area = myArea,
-                                    photourl = myPhotoUrl,
-                                    description = myDescription)
-                                    
-            myPropertyKey = myNewProperty.put()
-            
-            c.message = "inserted"
-            c.key = myPropertyKey.urlsafe()
-            
-        except:
-             c.message = "Exception ..."
-             
-        json_string = json.dumps(c, default=ObjectClass)
-        self.response.write(json_string)
-
 class GetMyPropertiesHandler(webapp2.RequestHandler):
 
     def get(self):
@@ -333,7 +280,7 @@ app = webapp2.WSGIApplication([
     ################################
     ('/myProperties', MyPropertiesHandler),
     ('/submitProperty', SubmitPropertyHandler),
-    ('/addProperty', AddPropertyHandler),
+    # ('/addProperty', AddPropertyHandler),
     ('/getMyProperties', GetMyPropertiesHandler),
     ################################
     ('/myProfile', ProfileHandler)

@@ -429,10 +429,15 @@
 
 		<!-- Row -->
 		<!-- Title -->
-		<div class="form">
-			<h5>Photo URL <i class="tip"></i></h5>
-			<input class="search-field" type="text" id="photourl" placeholder="Insert photo url" value=""/>
-		</div>
+		<!-- <div class="form">
+			<h5>Photo <i class="tip"></i></h5>
+			<input type="file" id="uploaded_file" value=""/>
+		</div> -->
+
+		<label for="exampleInputEmail1"><i>Foto</i></label>
+		<img  src="" alt="Image preview" id="preview" style="width:128px;height:128px;" >
+		<input type="text" id="url_photo">
+		<input onchange="uploadDemo()" type="file"  id="uploaded_file" name="uploaded_file">
 
 		<!-- Section -->
 		<h3>Location</h3>

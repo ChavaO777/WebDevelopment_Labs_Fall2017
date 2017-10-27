@@ -121,14 +121,13 @@ class CompanyList(messages.Message):
 #### Property
 ###########################
 class PropertyInput(messages.Message):
-    token = messages.StringField(1, required=True) 
+    tokenint = messages.StringField(1, required=True) 
     title = messages.StringField(2)
     status = messages.StringField(3)
     price = messages.StringField(4)
     address = messages.StringField(5)
     city = messages.StringField(6)
     state = messages.StringField(7)
-    country = messages.StringField(8)
     zipcode = messages.StringField(9)
     rooms = messages.StringField(10)
     bathrooms = messages.StringField(11)
@@ -147,7 +146,6 @@ class PropertyUpdate(messages.Message):
     address = messages.StringField(6)
     city = messages.StringField(7)
     state = messages.StringField(8)
-    country = messages.StringField(9)
     zipcode = messages.StringField(10)
     rooms = messages.StringField(11)
     bathrooms = messages.StringField(12)
