@@ -45,8 +45,8 @@ function addProperty()
 	try
     {
         alert("token : " + sessionStorage.token);
-        var photourl = $("#photourl").val();
-
+        upload();
+        
         var myData = new PropertyObject(entityKey = "!!??",
                                         title = $("#title").val(),
                                         status = $("#status").val(),
@@ -60,11 +60,10 @@ function addProperty()
                                         propertyType = $("#propertyType").val(),
                                         yearBuilt = $("#yearBuilt").val(),
                                         area = $("#area").val(),
-                                        photourl = $("#photourl").val(),
+                                        photourl = sessionStorage.urlImage,
                                         description = $("#description").val());
         
         alert(myData.toJsonString());
-        alert("photourl = " + photourl);
 
         jQuery.ajax({
 
@@ -77,7 +76,6 @@ function addProperty()
             success: function (response) {
                     // do something
                     alert (response.code + " " + response.message);
-                    upload();
             },
         
             error: function (error) {            
