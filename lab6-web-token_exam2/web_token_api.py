@@ -658,6 +658,47 @@ class PropertyApi(remote.Service):
 
   # Update a property
   #                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
+  @endpoints.method(TokenKey, CodeMessage, path = 'property/showupdate', http_method = 'POST', name = 'property.showupdate')
+  #siempre lleva cls y request
+  def show_property_update(cls, request):
+    try:
+      token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+      #Obtiene el elemento dado el entityKey
+      propertyEntity = ndb.Key(urlsafe = request.entityKey)
+      myProperty = Property.get_by_id(propertyEntity.id())
+
+      myList = []
+      listMessage = PropertyList(code=1)
+      myList.append(PropertyUpdate(token = '',
+                                   entityKey = propertyEntity.get().entityKey,
+                                   title = propertyEntity.get().title,
+                                   status = propertyEntity.get().status,
+                                   price = propertyEntity.get().price,
+                                   address = propertyEntity.get().address,
+                                   city = propertyEntity.get().city,
+                                   state = propertyEntity.get().state,
+                                   zipcode = propertyEntity.get().zipcode,
+                                   rooms = propertyEntity.get().rooms,
+                                   bathrooms = propertyEntity.get().bathrooms,
+                                   propertyType = propertyEntity.get().propertyType,
+                                   yearBuilt = propertyEntity.get().yearBuilt,
+                                   area = propertyEntity.get().area,
+                                   photourl = propertyEntity.get().photourl,
+                                   description = propertyEntity.get().description))
+
+      listMessage.data = myList
+      message = listMessage
+    
+    except jwt.DecodeError:
+      message = PropertyList(code = -1, data = [])
+    
+    except jwt.ExpiredSignatureError:
+      message = PropertyList(code = -2, data = [])
+    
+    return message
+
+  # Update a property
+  #                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
   @endpoints.method(PropertyUpdate, CodeMessage, path = 'property/update', http_method = 'POST', name = 'property.update')
   #siempre lleva cls y request
   def property_update(cls, request):
@@ -702,7 +743,6 @@ class PropertyApi(remote.Service):
                                     address = i.address,
                                     city = i.city,
                                     state = i.state,
-                                    country = i.country,
                                     zipcode = i.zipcode,
                                     rooms = i.rooms,
                                     bathrooms = i.bathrooms,

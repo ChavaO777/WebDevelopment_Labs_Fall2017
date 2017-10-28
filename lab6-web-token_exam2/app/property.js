@@ -76,11 +76,12 @@ function addProperty()
             success: function (response) {
                     // do something
                     alert (response.code + " " + response.message);
+                    window.location = "/myProperties";
             },
         
             error: function (error) {            
                     // error handler
-                    alert("error :" + error.message)
+                    alert("error :" + error.message);
             }
         });
     }
@@ -103,14 +104,15 @@ function showEditProperty(propertyKey)
         jQuery.ajax({
 
             type: "GET",
-            // url: "https://MI_DOMINIO/_ah/api/property_api/v1/property/get //Use this when the website is live
-            url: "http://localhost:8080/_ah/api/property_api/v1/property/get",
+            // url: "https://MI_DOMINIO/_ah/api/property_api/v1/property/showupdate //Use this when the website is live
+            url: "http://localhost:8080/_ah/api/property_api/v1/property/showupdate",
             data: myProperty.toJsonString(),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
                 // do something
                 // alert (response.code + " " + response.message);
+                window.location = "/editProperty";
             },
         
             error: function (error) {            
@@ -195,6 +197,7 @@ function deleteProperty(propertyKey)
             success: function (response) {
                 // do something
                 alert (response.code + " " + response.message);
+                window.location = "/myProperties";
             },
         
             error: function (error) {            

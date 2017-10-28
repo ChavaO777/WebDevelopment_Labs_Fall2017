@@ -10,8 +10,7 @@ import json
 import os
 import jinja2
 
-from models import Empresa, Usuarios, Property
-from models import Tweet
+from models import Empresa, Usuarios, Tweet, Property
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -295,23 +294,22 @@ class ProfileHandler(webapp2.RequestHandler):
     template = jinja_env.get_template(template_name)
     return template.render(context) 
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/login', LoginHandler),
-    ('/tweets', TweetHandler),
-    ('/up', UpHandler),
-    ('/gettweets', GetTweetsHandler),
-    #################################
-    ('/home1', GetHome1Handler),
-    ('/home2', GetHome2Handler),
-    ('/home3', GetHome3Handler),
-    ('/home4', GetHome4Handler),
-    ################################
-    ('/myProperties', MyPropertiesHandler),
-    ('/submitProperty', SubmitPropertyHandler),
-    ('/editProperty', EditPropertyHandler),
-    ('/getMyProperties', GetMyPropertiesHandler),
-    ('/getProperty', GetPropertyHandler),
-    ################################
-    ('/myProfile', ProfileHandler)
-], debug = True)
+app = webapp2.WSGIApplication([('/', MainHandler),
+                               ('/login', LoginHandler),
+                               ('/tweets', TweetHandler),
+                               ('/up', UpHandler),
+                               ('/gettweets', GetTweetsHandler),
+                               #################################
+                               ('/home1', GetHome1Handler),
+                               ('/home2', GetHome2Handler),
+                               ('/home3', GetHome3Handler),
+                               ('/home4', GetHome4Handler),
+                               ################################
+                               ('/myProperties', MyPropertiesHandler),
+                               ('/submitProperty', SubmitPropertyHandler),
+                               ('/editProperty', EditPropertyHandler),
+                               ('/getMyProperties', GetMyPropertiesHandler),
+                               ('/getProperty', GetPropertyHandler),
+                               ################################
+                               ('/myProfile', ProfileHandler)
+                               ], debug = True)

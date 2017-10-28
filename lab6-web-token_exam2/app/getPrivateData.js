@@ -39,8 +39,8 @@ function getMyProperties()
                                             "</td>" +
                                             // "<td class='expire-date'>December 30, 2016</td>" +
                                             "<td class='action'>" +
-                                                "<a href='/editProperty'><i class='fa fa-pencil'></i> Edit</a>" +
-                                                // "<a onclick='showEditProperty(\"" + property.key + "\")'><i class='fa fa-pencil'></i> Edit</a>" +
+                                                // "<a href='/editProperty'><i class='fa fa-pencil'></i> Edit</a>" +
+                                                "<a onclick='showEditProperty(\"" + property.key + "\")'><i class='fa fa-pencil'></i> Edit</a>" +
                                                 "<a href='#'><i class='fa  fa-eye-slash'></i> Hide</a>" +
                                                 "<a onclick='deleteProperty(\"" + property.key + "\")' class='delete'><i class='fa fa-remove'></i> Delete</a>" +
                                             "</td>" +
