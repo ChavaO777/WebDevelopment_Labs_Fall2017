@@ -60,7 +60,7 @@ function addProperty()
                                         propertyType = $("#propertyType").val(),
                                         yearBuilt = $("#yearBuilt").val(),
                                         area = $("#area").val(),
-                                        photourl = sessionStorage.urlImage,
+                                        photourl = "THE PHOTO IS BEING UPLOADED",
                                         description = $("#description").val());
         
         alert(myData.toJsonString());
@@ -255,9 +255,9 @@ function getPropertyList()
                                             // "<td class='expire-date'>December 30, 2016</td>" +
                                             "<td class='action'>" +
                                                 // "<a href='/editProperty'><i class='fa fa-pencil'></i> Edit</a>" +
-                                                "<a onclick='showEditProperty(\"" + property.key + "\")'><i class='fa fa-pencil'></i> Edit</a>" +
+                                                "<a onclick='showEditProperty(\"" + property.entityKey + "\")'><i class='fa fa-pencil'></i> Edit</a>" +
                                                 "<a href='#'><i class='fa  fa-eye-slash'></i> Hide</a>" +
-                                                "<a onclick='deleteProperty(\"" + property.key + "\")' class='delete'><i class='fa fa-remove'></i> Delete</a>" +
+                                                "<a onclick='deleteProperty(\"" + property.entityKey + "\")' class='delete'><i class='fa fa-remove'></i> Delete</a>" +
                                             "</td>" +
                                          "</tr>";
                 });
@@ -301,10 +301,10 @@ function upload()
             crossDomain: true,
             success: function(response){
 
-                // document.getElementById("preview").src = response;
+                document.getElementById("preview").src = response;
                 alert("response" + response);
                 sessionStorage.urlImage = response;
-                // document.getElementById("url_photo").value = response;
+                document.getElementById("url_photo").value = response;
                 alert(sessionStorage.urlImage);
             },
 
