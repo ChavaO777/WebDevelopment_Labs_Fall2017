@@ -216,6 +216,20 @@ class SubmitPropertyHandler(webapp2.RequestHandler):
         self.response.out.write(
             self._render_template('submit-property.html', template_context))
 
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
+
+        template = jinja_env.get_template(template_name)
+        return template.render(context) 
+
+class EditPropertyHandler(webapp2.RequestHandler):
+
+    def get(self):
+
+        template_context = {}
+        self.response.out.write(
+            self._render_template('edit-property.html', template_context))
 
     def _render_template(self, template_name, context=None):
         if context is None:
@@ -250,6 +264,21 @@ class GetMyPropertiesHandler(webapp2.RequestHandler):
         json_string = json.dumps(myList, default=MyClass)
         self.response.write(json_string)
 
+class GetPropertyHandler(webapp2.RequestHandler):
+
+    def get(self):
+
+        template_context = {}
+        self.response.out.write(
+            self._render_template('single-property-page-1.html', template_context))
+
+    def _render_template(self, template_name, context=None):
+        if context is None:
+            context = {}
+
+        template = jinja_env.get_template(template_name)
+        return template.render(context) 
+
 class ProfileHandler(webapp2.RequestHandler):
 
    def get(self):
@@ -280,8 +309,9 @@ app = webapp2.WSGIApplication([
     ################################
     ('/myProperties', MyPropertiesHandler),
     ('/submitProperty', SubmitPropertyHandler),
-    # ('/addProperty', AddPropertyHandler),
+    ('/editProperty', EditPropertyHandler),
     ('/getMyProperties', GetMyPropertiesHandler),
+    ('/getProperty', GetPropertyHandler),
     ################################
     ('/myProfile', ProfileHandler)
 ], debug = True)

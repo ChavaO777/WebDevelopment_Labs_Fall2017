@@ -90,6 +90,91 @@ function addProperty()
     }
 }
 
+function showEditProperty(propertyKey)
+{
+	try
+    {
+        alert("sessionStorage.token = " + sessionStorage.token);
+        var myProperty = new PropertyObject(entityKey = propertyKey);
+        alert("myProperty.toJsonString() = " + myProperty.toJsonString());
+
+        jQuery.support.cors = true;
+
+        jQuery.ajax({
+
+            type: "GET",
+            // url: "https://MI_DOMINIO/_ah/api/property_api/v1/property/get //Use this when the website is live
+            url: "http://localhost:8080/_ah/api/property_api/v1/property/get",
+            data: myProperty.toJsonString(),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                // do something
+                // alert (response.code + " " + response.message);
+            },
+        
+            error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+            }
+        });
+    }
+    catch(error)
+    {
+        alert(error);
+    }
+}
+
+function editProperty(propertyKey)
+{
+	try
+    {
+        alert("token : " + sessionStorage.token);
+        upload();
+        
+        var myData = new PropertyObject(entityKey = propertyKey,
+                                        title = $("#title").val(),
+                                        status = $("#status").val(),
+                                        price = $("#price").val(),
+                                        address = $("#address").val(),
+                                        city = $("#city").val(),
+                                        state = $("#state").val(),
+                                        zipcode = $("#zipcode").val(),
+                                        rooms = $("#rooms").val(),
+                                        bathrooms = $("#bathrooms").val(),
+                                        propertyType = $("#propertyType").val(),
+                                        yearBuilt = $("#yearBuilt").val(),
+                                        area = $("#area").val(),
+                                        photourl = sessionStorage.urlImage,
+                                        description = $("#description").val());
+        
+        alert(myData.toJsonString());
+
+        jQuery.ajax({
+
+            type: "POST",
+            // url: "https://MI_DOMINIO/_ah/api/property_api/v1/property/update //Use this when the website is live
+            url: "http://localhost:8080/_ah/api/property_api/v1/property/update",
+            data: myData.toJsonString(),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                    // do something
+                    alert (response.code + " " + response.message);
+            },
+        
+            error: function (error) {            
+                    // error handler
+                    alert("error :" + error.message)
+            }
+        });
+    }
+    catch(error)
+    {
+        alert(error);
+    }
+}
+
 function deleteProperty(propertyKey)
 {
 	try
@@ -153,7 +238,6 @@ function getPropertyList()
    {
         alert(error);
    }
-
 }
 
 function upload()

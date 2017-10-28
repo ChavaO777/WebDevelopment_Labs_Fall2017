@@ -22,7 +22,7 @@ function getMyProperties()
                 var myTableProperties = "<table class='manage-table responsive-table'>" +
                                         "<tr>" +
                                             "<th><i class='fa fa-file-text'></i> Property</th>" +
-                                            "<th class='expire-date'><i class='fa fa-calendar'></i> Expiration Date</th>" +
+                                            // "<th class='expire-date'><i class='fa fa-calendar'></i> Expiration Date</th>" +
                                             "<th></th>" +
                                         "</tr>";
                                     
@@ -32,19 +32,17 @@ function getMyProperties()
                                             "<td class='title-container'>" + 
                                                 "<img src=" + property.photourl + " alt=''>" +
                                                 "<div class='title'>" +
-                                                    "<h4><a href='#'>" + property.title + "</a></h4>" +
+                                                    "<h4><a href='/getProperty'>" + property.title + "</a></h4>" +
                                                     "<span>" + property.address + "</span>" +
                                                     "<span class='table-property-price'>$" + property.price + "</span>" +
                                                 "</div>" +
                                             "</td>" +
-                                            "<td class='expire-date'>December 30, 2016</td>" +
+                                            // "<td class='expire-date'>December 30, 2016</td>" +
                                             "<td class='action'>" +
-                                                "<a href='#'><i class='fa fa-pencil'></i> Edit</a>" +
+                                                "<a href='/editProperty'><i class='fa fa-pencil'></i> Edit</a>" +
+                                                // "<a onclick='showEditProperty(\"" + property.key + "\")'><i class='fa fa-pencil'></i> Edit</a>" +
                                                 "<a href='#'><i class='fa  fa-eye-slash'></i> Hide</a>" +
                                                 "<a onclick='deleteProperty(\"" + property.key + "\")' class='delete'><i class='fa fa-remove'></i> Delete</a>" +
-                                                // "<button onclick='deleteProperty(\"" + property.id + "\")' class='delete'><i class='fa fa-remove'></i> Delete</button>" +
-                                                // "<button type='button' class='btn btn-primary' onclick='deleteProperty(\"" + property.id + "\")'>Delete</button>" + 
-                                                // "<a href='#' class='delete'><i class='fa fa-remove'></i> Delete</a>" +
                                             "</td>" +
                                          "</tr>";
                 });
