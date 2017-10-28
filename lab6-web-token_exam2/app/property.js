@@ -45,7 +45,6 @@ function addProperty()
 	try
     {
         alert("token : " + sessionStorage.token);
-        upload();
         
         var myData = new PropertyObject(entityKey = "!!??",
                                         title = $("#title").val(),
@@ -60,7 +59,7 @@ function addProperty()
                                         propertyType = $("#propertyType").val(),
                                         yearBuilt = $("#yearBuilt").val(),
                                         area = $("#area").val(),
-                                        photourl = "THE PHOTO IS BEING UPLOADED",
+                                        photourl = sessionStorage.urlImage,
                                         description = $("#description").val());
         
         alert(myData.toJsonString());
@@ -132,7 +131,6 @@ function editProperty(propertyKey)
 	try
     {
         alert("token : " + sessionStorage.token);
-        upload();
         
         var myData = new PropertyObject(entityKey = propertyKey,
                                         title = $("#title").val(),
