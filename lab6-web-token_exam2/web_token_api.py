@@ -590,7 +590,6 @@ class PropertyApi(remote.Service):
                                    address = propertyEntity.get().address,
                                    city = propertyEntity.get().city,
                                    state = propertyEntity.get().state,
-                                   country = propertyEntity.get().country,
                                    zipcode = propertyEntity.get().zipcode,
                                    rooms = propertyEntity.get().rooms,
                                    bathrooms = propertyEntity.get().bathrooms,
